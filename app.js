@@ -38,10 +38,10 @@ app.get('/', (req, res) => {
   // sending files and join path using path .js
   // res.sendFile(path.join(__dirname, 'views', 'index.html'));
 
-  //rendering index files in src/views
+  // rendering index files in src/views
   res.render('index', {
-    title: 'MyLibrary',
-    list: ['a', 'b']
+    nav: ['Books', 'Authors'],
+    title: 'Cool Library'
   });
 });
 
