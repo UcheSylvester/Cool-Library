@@ -20,28 +20,29 @@ app.use(morgan('tiny'));
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-// adding bootstrap CSS and JS from node modules
+// adding bootstrap CSS, JS, popper and JQuery from node modules
 
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
-
-// adding JQuery from node modules
-
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
-
-// adding popper from node modules
-
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
 
-//  Hey express set our views
+// Set up views with express and set pug as template engine
 
 app.set('views', './src/views');
+app.set('view engine', 'pug');
 
 // sending a get request to /
 
 app.get('/', (req, res) => {
   // sending files and join path using path .js
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  // res.sendFile(path.join(__dirname, 'views', 'index.html'));
+
+  //rendering index files in src/views
+  res.render('index', {
+    title: 'MyLibrary',
+    list: ['a', 'b']
+  });
 });
 
 app.listen(PORT, () => {
