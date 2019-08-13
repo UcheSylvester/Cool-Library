@@ -27,10 +27,10 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
 
-// Set up views with express and set pug as template engine
+// Set up views with express and set ejs as template engine
 
 app.set('views', './src/views');
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 // sending a get request to /
 
