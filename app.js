@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
-const sql = require('mssql');
+// const sql = require('mssql');
 
 // Get an instance of express
 const app = express();
@@ -11,17 +11,6 @@ const app = express();
 //  set PORT from nodemon in package.json
 const PORT = process.env.PORT || 3000;
 
-// configuring mssql
-const config = {
-  user: '...',
-  password: '...',
-  server: 'localhost', // You can use 'localhost\\instance' to connect to named instance
-  database: '...',
-
-  options: {
-      encrypt: true // Use this if you're on Windows Azure
-  }
-}
 
 // use morgan to log out addition info
 app.use(morgan('tiny'));

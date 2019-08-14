@@ -1,7 +1,7 @@
 const express = require('express');
 
 // Get an instance of express to app
-const app = express()
+// const app = express()
 // Gett an instance of Router in express as bookRouter
 const bookRouter = express.Router();
 
