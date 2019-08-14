@@ -4,9 +4,6 @@ const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 
-// Gett an instance of Router in express
-const bookRouter = express.Router();
-
 // Get an instance of express
 const app = express();
 
@@ -29,73 +26,11 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-const books = [
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-]
-
-// Create a book route
-bookRouter.route('/')
-  .get((req, res) => {
-    res.render('books',
-    {
-      nav: [
-        {
-          link: '/books',
-          title: 'Books',
-        },
-        {
-          link: '/authors',
-          title: 'Authors',
-        },
-      ],
-      title: 'Cool Library',
-      books
-    },);
-  });
-
-// Create route for single book: /books/single
-bookRouter.route('/single')
-  .get((req, res) => {
-    res.send('single book')
-  })
+// Get bookRoutes from routes
+const bookRouter = require('./src/routes/bookRoutes');
 
 // Let express know of book route /books
-app.use('/books', bookRouter)
+app.use('/books', bookRouter);
 
 // sending a get request to /
 app.get('/', (req, res) => {
