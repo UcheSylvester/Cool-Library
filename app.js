@@ -4,47 +4,68 @@ const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 
-// Get an instance of express
+// Gett an instance of Router in express
+const bookRouter = express.Router();
 
+// Get an instance of express
 const app = express();
 
 //  Get the port from nodemon in package.json
-
 const PORT = process.env.PORT || 3000;
 
 // use morgan to log out addition info
-
 app.use(morgan('tiny'));
 
 // use express to serve up static files
-
 app.use(express.static(path.join(__dirname, '/public')));
 
 // adding bootstrap CSS, JS, popper and JQuery from node modules
-
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
 
 // Set up views with express and set ejs as template engine
-
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-// sending a get request to /
-
-app.get('/', (req, res) => {
-  // sending files and join path using path .js
-  // res.sendFile(path.join(__dirname, 'views', 'index.html'));
-
-  // rendering index files in src/views
-  res.render('index', {
-    nav: ['Books', 'Authors'],
-    title: 'Cool Library'
+// Create a book route
+bookRouter.route('/')
+  .get((req, res) => {
+    res.send('hello books');
   });
+
+// Create route for single books: /books/single
+bookRouter.route('/single')
+  .get((req, res) => {
+    res.send('hello single books')
+  })
+
+// Let express know of book route /books
+app.use('/books', bookRouter)
+
+// sending a get request to /
+app.get('/', (req, res) => {
+  // rendering index files in src/views
+  res.render(
+    'index',
+    {
+      nav: [
+        {
+          link: '/books',
+          title: 'Books',
+        },
+        {
+          link: '/authors',
+          title: 'Authors',
+        },
+      ],
+      title: 'Cool Library',
+    },
+  );
 });
 
+// Listening on PORT (4000) defined earlier
 app.listen(PORT, () => {
   debug(`listening at port ${chalk.green(PORT)}`);
 });
