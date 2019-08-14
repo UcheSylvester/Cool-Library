@@ -26,8 +26,14 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+// defining nav to avoid repetition
+const nav = [
+  { link: '/books', title: 'Books', },
+  { link: '/authors', title: 'Authors', },
+]
+
 // Get bookRoutes from routes
-const bookRouter = require('./src/routes/bookRoutes');
+const bookRouter = require('./src/routes/bookRoutes')(nav);
 
 // Let express know of book route /books
 app.use('/books', bookRouter);
