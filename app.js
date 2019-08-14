@@ -29,16 +29,69 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+const books = [
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+]
+
 // Create a book route
 bookRouter.route('/')
   .get((req, res) => {
-    res.send('hello books');
+    res.render('books',
+    {
+      nav: [
+        {
+          link: '/books',
+          title: 'Books',
+        },
+        {
+          link: '/authors',
+          title: 'Authors',
+        },
+      ],
+      title: 'Cool Library',
+      books
+    },);
   });
 
-// Create route for single books: /books/single
+// Create route for single book: /books/single
 bookRouter.route('/single')
   .get((req, res) => {
-    res.send('hello single books')
+    res.send('single book')
   })
 
 // Let express know of book route /books
