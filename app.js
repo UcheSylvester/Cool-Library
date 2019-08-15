@@ -30,15 +30,17 @@ app.set('view engine', 'ejs');
 
 // defining nav to avoid repetition
 const nav = [
-  { link: '/books', title: 'Books', },
-  { link: '/authors', title: 'Authors', },
-]
+  { link: '/books', title: 'Books' },
+  { link: '/authors', title: 'Authors' },
+];
 
-// Get bookRoutes from routes
+// Get bookRoutes and adminRoutes from routes
 const bookRouter = require('./src/routes/bookRoutes')(nav);
+const adminRouter = require('./src/routes/adminRoutes')(nav);
 
-// Let express know of book route /books
+// Let express know of book and admin route /books
 app.use('/books', bookRouter);
+app.use('/admin', adminRouter);
 
 // sending a get request to /
 app.get('/', (req, res) => {
